@@ -122,3 +122,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide scrollbar when showing large tooltips */
+body, html {
+  overflow-x: hidden;
+}

@@ -1,10 +1,17 @@
 "use client";
 
-import { Music, TrendingUp, BarChart3 } from "lucide-react";
+import { useState } from "react";
+import { Music, TrendingUp, BarChart3, User, ListMusic } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ArtistSearch } from "@/components/search/artist-search";
+import { PlaylistSearch } from "@/components/search/playlist-search";
+import { Button } from "@/components/ui/button";
+
+type SearchType = "artist" | "playlist";
 
 export default function Page() {
+  const [searchType, setSearchType] = useState<SearchType>("artist");
+
   return (
     <main className="bg-background text-foreground min-h-screen transition-colors">
       <div className="container mx-auto px-4 py-8">
@@ -23,7 +30,7 @@ export default function Page() {
             Descubre insights sobre tu música favorita
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-            Explora datos interesantes sobre artistas, canciones y álbumes usando la API de Spotify.
+            Explora datos interesantes sobre artistas, playlists y álbumes usando la API de Spotify.
             Analiza duraciones, géneros, popularidad y más.
           </p>
         </div>
@@ -56,12 +63,36 @@ export default function Page() {
         {/* Search Section */}
         <div className="mx-auto max-w-4xl">
           <div className="mb-6">
-            <h3 className="mb-2 text-xl font-semibold">Buscar Artista</h3>
-            <p className="text-sm text-muted-foreground">
-              Comienza buscando un artista para ver sus datos y análisis
-            </p>
+            <div className="mb-4 flex gap-2">
+              <Button
+                variant={searchType === "artist" ? "default" : "outline"}
+                onClick={() => setSearchType("artist")}
+                className="flex items-center gap-2"
+              >
+                <User className="size-4" />
+                Buscar Artista
+              </Button>
+              <Button
+                variant={searchType === "playlist" ? "default" : "outline"}
+                onClick={() => setSearchType("playlist")}
+                className="flex items-center gap-2"
+              >
+                <ListMusic className="size-4" />
+                Buscar Playlist
+              </Button>
+            </div>
+            <div>
+              <h3 className="mb-2 text-xl font-semibold">
+                {searchType === "artist" ? "Buscar Artista" : "Buscar Playlist"}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {searchType === "artist"
+                  ? "Comienza buscando un artista para ver sus datos y análisis"
+                  : "Busca una playlist para analizar sus canciones y descubrir insights interesantes"}
+              </p>
+            </div>
           </div>
-          <ArtistSearch />
+          {searchType === "artist" ? <ArtistSearch /> : <PlaylistSearch />}
         </div>
       </div>
     </main>

@@ -3,6 +3,8 @@ import type {
   SpotifySearchResponse,
   SpotifyArtist,
   SpotifyArtistTopTracksResponse,
+  SpotifyPlaylistSearchResponse,
+  SpotifyPlaylist,
 } from "./types";
 
 export class SpotifyEndpoints {
@@ -45,6 +47,32 @@ export class SpotifyEndpoints {
         },
       },
     );
+    return response.data;
+  }
+
+  /**
+   * Buscar playlists en Spotify
+   */
+  async searchPlaylists(query: string, limit = 20): Promise<SpotifyPlaylistSearchResponse> {
+    const response = await this.client.get<SpotifyPlaylistSearchResponse>("/search", {
+      params: {
+        q: query,
+        type: "playlist",
+        limit,
+      },
+    });
+    return response.data;
+  }
+
+  /**
+   * Obtener información de una playlist por ID
+   */
+  async getPlaylist(playlistId: string): Promise<SpotifyPlaylist> {
+    const response = await this.client.get<SpotifyPlaylist>(`/playlists/${playlistId}`, {
+      params: {
+        market: "US",
+      },
+    });
     return response.data;
   }
 }

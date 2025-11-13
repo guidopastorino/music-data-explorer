@@ -29,10 +29,12 @@ export function TopTracksList({ tracks }: TopTracksListProps) {
       <div className="space-y-2">
         {tracks.map((track, index) => {
           const albumImage = track.album.images[0]?.url;
+          // Usar combinación de id e index para keys únicas (las playlists pueden tener canciones duplicadas)
+          const uniqueKey = `${track.id}-${index}`;
 
           return (
             <div
-              key={track.id}
+              key={uniqueKey}
               className="group flex items-center gap-4 rounded-lg border bg-card p-4 transition-all hover:shadow-md"
             >
               <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted font-bold">

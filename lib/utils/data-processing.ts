@@ -70,3 +70,27 @@ export function preparePopularityChartData(tracks: SpotifyTrack[]) {
   }));
 }
 
+/**
+ * Encuentra los artistas más frecuentes en una lista de tracks
+ */
+export function findMostFrequentArtists(tracks: SpotifyTrack[], limit = 5) {
+  const artistCount: Record<string, { name: string; count: number }> = {};
+
+  tracks.forEach((track) => {
+    track.artists.forEach((artist) => {
+      if (artistCount[artist.id]) {
+        artistCount[artist.id].count++;
+      } else {
+        artistCount[artist.id] = {
+          name: artist.name,
+          count: 1,
+        };
+      }
+    });
+  });
+
+  return Object.values(artistCount)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+}
+

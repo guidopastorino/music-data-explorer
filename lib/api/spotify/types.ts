@@ -53,6 +53,39 @@ export interface SpotifyArtistTopTracksResponse {
   tracks: SpotifyTrack[];
 }
 
+export interface SpotifyPlaylist {
+  id: string;
+  name: string;
+  description: string | null;
+  images: SpotifyImage[];
+  owner: {
+    display_name: string;
+    id: string;
+  };
+  followers?: {
+    total: number;
+  };
+  public?: boolean;
+  tracks?: {
+    total: number;
+    items: Array<{
+      track: SpotifyTrack | null;
+    }>;
+  };
+  external_urls: {
+    spotify: string;
+  };
+}
+
+export interface SpotifyPlaylistSearchResponse {
+  playlists: {
+    items: (SpotifyPlaylist | null)[];
+    total: number;
+    limit: number;
+    offset: number;
+  };
+}
+
 export interface SpotifyError {
   error: {
     status: number;
