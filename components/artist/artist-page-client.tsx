@@ -77,23 +77,23 @@ export function ArtistPageClient({ artistId }: ArtistPageClientProps) {
 
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="space-y-8">
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg md:border md:bg-card md:p-6">
               <DurationChart tracks={topTracks} />
             </div>
           </div>
 
           <div className="space-y-8">
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg md:border md:bg-card md:p-6">
               <PopularityChart tracks={topTracks} />
             </div>
           </div>
         </div>
 
-        <div className="rounded-lg border bg-card p-6">
+        <div className="rounded-lg md:border md:bg-card md:p-6">
           <InsightsSection tracks={topTracks} />
         </div>
 
-        <div className="rounded-lg border bg-card p-6">
+        <div className="rounded-lg md:border md:bg-card md:p-6">
           <TopTracksList tracks={topTracks} />
         </div>
       </div>

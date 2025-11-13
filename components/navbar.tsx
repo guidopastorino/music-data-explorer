@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Music } from "lucide-react";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Navbar() {
@@ -10,12 +10,17 @@ export function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
-              <Music className="size-6 text-primary" />
+            <div className="flex size-10 items-center justify-center rounded-lg overflow-hidden">
+              <Image 
+                src="/icons/apple-icon-180x180.png" 
+                alt="Logo" 
+                width={40} 
+                height={40}
+                className="object-contain"
+              />
             </div>
             <div>
               <h1 className="text-xl font-bold">Music Data Explorer</h1>
-              <p className="text-xs text-muted-foreground">Powered by Spotify API</p>
             </div>
           </Link>
           <ThemeToggle />

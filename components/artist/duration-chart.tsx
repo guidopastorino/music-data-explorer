@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -18,6 +19,18 @@ interface DurationChartProps {
 }
 
 export function DurationChart({ tracks }: DurationChartProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640); // 640px is Tailwind's 'sm' breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   const data = prepareDurationChartData(tracks);
 
   // Colores para las barras usando variables del tema
@@ -41,9 +54,9 @@ export function DurationChart({ tracks }: DurationChartProps) {
           Comparación de la duración de cada canción (en segundos)
         </p>
       </div>
-      <div className="h-80 w-full">
+      <div className="h-80 w-full bg-card md:bg-transparent rounded-lg">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+          <BarChart data={data} margin={{ top: 20, right: 30, left: isMobile ? 0 : 20, bottom: 60 }}>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
             <XAxis
               dataKey="name"
@@ -54,7 +67,7 @@ export function DurationChart({ tracks }: DurationChartProps) {
               className="text-muted-foreground"
             />
             <YAxis
-              label={{ value: "Segundos", angle: -90, position: "insideLeft" }}
+              label={isMobile ? undefined : { value: "Segundos", angle: -90, position: "insideLeft" }}
               className="text-muted-foreground"
             />
             <Tooltip

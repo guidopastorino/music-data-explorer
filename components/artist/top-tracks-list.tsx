@@ -59,43 +59,44 @@ function TrackImage({
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="group flex items-center gap-4 rounded-lg border bg-card p-4 transition-all hover:shadow-md">
-      <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted font-bold">
+    <div className="group flex items-center gap-3 rounded-lg border bg-card p-3 sm:gap-4 sm:p-4 transition-all hover:shadow-md">
+      <div className="flex size-8 shrink-0 items-center justify-center rounded bg-muted text-xs font-semibold sm:size-12 sm:rounded-lg sm:text-base">
         {index + 1}
       </div>
 
-      <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
+      <div className="relative size-12 shrink-0 overflow-hidden rounded bg-muted sm:size-16 sm:rounded-lg">
         {albumImage && !imageError ? (
           <Image
             src={albumImage}
             alt={track.album.name}
             fill
             className="object-cover"
-            sizes="64px"
+            sizes="(max-width: 640px) 48px, 64px"
             onError={() => setImageError(true)}
             unoptimized
           />
         ) : (
           <div className="flex size-full items-center justify-center">
-            <TrendingUp className="size-6 text-muted-foreground" />
+            <TrendingUp className="size-4 text-muted-foreground sm:size-6" />
           </div>
         )}
       </div>
 
-      <div className="flex-1 min-w-0">
-        <h4 className="truncate font-semibold">{track.name}</h4>
-        <p className="truncate text-sm text-muted-foreground">
-          {track.artists.map((a) => a.name).join(", ")} • {track.album.name}
+      <div className="flex-1 min-w-0 space-y-1">
+        <h4 className="truncate text-sm font-semibold sm:text-base">{track.name}</h4>
+        <p className="truncate text-xs text-muted-foreground sm:text-sm">
+          {track.artists.map((a) => a.name).join(", ")}
+          <span className="hidden sm:inline"> • {track.album.name}</span>
         </p>
       </div>
 
-      <div className="flex shrink-0 items-center gap-4">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Clock className="size-4" />
+      <div className="flex shrink-0 flex-col items-end gap-1 sm:flex-row sm:items-center sm:gap-4">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground sm:gap-2 sm:text-sm">
+          <Clock className="size-3 sm:size-4" />
           <span>{formatDuration(track.duration_ms)}</span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <TrendingUp className="size-4" />
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground sm:gap-2 sm:text-sm">
+          <TrendingUp className="size-3 sm:size-4" />
           <span>{track.popularity}</span>
         </div>
         <a
@@ -103,8 +104,9 @@ function TrackImage({
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground transition-colors hover:text-foreground"
+          aria-label="Abrir en Spotify"
         >
-          <ExternalLink className="size-4" />
+          <ExternalLink className="size-3 sm:size-4" />
         </a>
       </div>
     </div>

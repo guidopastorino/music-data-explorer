@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Music, TrendingUp, BarChart3, User, ListMusic, Sparkles } from "lucide-react";
+import { Music, TrendingUp, BarChart3, User, ListMusic } from "lucide-react";
 import { ArtistSearch } from "@/components/search/artist-search";
 import { PlaylistSearch } from "@/components/search/playlist-search";
 import { Button } from "@/components/ui/button";
@@ -16,10 +16,6 @@ export default function Page() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="mb-16 space-y-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm">
-            <Sparkles className="size-4 text-primary" />
-            <span className="text-muted-foreground">Explora datos musicales en tiempo real</span>
-          </div>
           <h2 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Descubre insights sobre tu música favorita
           </h2>
@@ -30,8 +26,8 @@ export default function Page() {
         </div>
 
         {/* Features Preview */}
-        <div className="mb-16 grid gap-6 sm:grid-cols-3">
-          <div className="group rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
+        <div className="mb-16 flex gap-6 overflow-x-auto pb-4 scrollbar-hide sm:grid sm:grid-cols-3 sm:overflow-x-visible sm:pb-0">
+          <div className="group flex-shrink-0 w-[80%] sm:w-auto rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
             <div className="mb-4 inline-flex size-12 items-center justify-center rounded-lg bg-primary/10 transition-transform group-hover:scale-110">
               <TrendingUp className="size-6 text-primary" />
             </div>
@@ -40,7 +36,7 @@ export default function Page() {
               Descubre patrones en la música que escuchas
             </p>
           </div>
-          <div className="group rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
+          <div className="group flex-shrink-0 w-[80%] sm:w-auto rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
             <div className="mb-4 inline-flex size-12 items-center justify-center rounded-lg bg-primary/10 transition-transform group-hover:scale-110">
               <BarChart3 className="size-6 text-primary" />
             </div>
@@ -49,7 +45,7 @@ export default function Page() {
               Gráficos interactivos de datos musicales
             </p>
           </div>
-          <div className="group rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
+          <div className="group flex-shrink-0 w-[80%] sm:w-auto rounded-xl border bg-card p-6 text-center transition-all hover:border-primary/50 hover:shadow-lg">
             <div className="mb-4 inline-flex size-12 items-center justify-center rounded-lg bg-primary/10 transition-transform group-hover:scale-110">
               <Music className="size-6 text-primary" />
             </div>
@@ -62,25 +58,25 @@ export default function Page() {
 
         {/* Search Section */}
         <div className="mx-auto max-w-7xl">
-          <div className="mb-8 rounded-xl border bg-card p-8 shadow-sm">
-            <div className="mb-6 flex flex-wrap items-center gap-3">
+          <div className="mb-8 rounded-xl border bg-card p-4 sm:p-6 lg:p-8 shadow-sm">
+            <div className="mb-6 flex items-center gap-2 rounded-lg border bg-muted/50 p-1 sm:gap-3 sm:border-0 sm:bg-transparent sm:p-0">
               <Button
-                variant={searchType === "artist" ? "default" : "outline"}
+                variant={searchType === "artist" ? "default" : "ghost"}
                 onClick={() => setSearchType("artist")}
-                className="flex items-center gap-2"
+                className="flex flex-1 items-center justify-center gap-2 sm:flex-initial sm:justify-start"
                 size="lg"
               >
                 <User className="size-4" />
-                Buscar Artista
+                <span className="whitespace-nowrap">Buscar Artista</span>
               </Button>
               <Button
-                variant={searchType === "playlist" ? "default" : "outline"}
+                variant={searchType === "playlist" ? "default" : "ghost"}
                 onClick={() => setSearchType("playlist")}
-                className="flex items-center gap-2"
+                className="flex flex-1 items-center justify-center gap-2 sm:flex-initial sm:justify-start"
                 size="lg"
               >
                 <ListMusic className="size-4" />
-                Buscar Playlist
+                <span className="whitespace-nowrap">Buscar Playlist</span>
               </Button>
             </div>
             <div className="mb-6">

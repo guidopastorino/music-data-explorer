@@ -16,7 +16,7 @@ function ArtistCard({ artist }: { artist: SpotifyArtist }) {
   return (
     <Link
       href={`/artist/${artist.id}`}
-      className="group block rounded-xl border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg"
+      className="group block w-full border-b border-border/50 bg-card px-4 py-4 transition-all hover:bg-accent/50 sm:px-6 sm:py-5 lg:px-8 last:border-b-0"
     >
       <div className="flex gap-4">
         <div className="relative size-24 shrink-0 overflow-hidden rounded-lg bg-muted transition-transform group-hover:scale-105">
@@ -89,12 +89,12 @@ export function ArtistResults({ data }: ArtistResultsProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <h2 className="text-xl font-semibold">
           Resultados ({data.artists.total})
         </h2>
       </div>
-      <div className="grid gap-4">
+      <div className="grid gap-0 -mx-4 sm:-mx-6 lg:-mx-8">
         {artists.map((artist) => (
           <ArtistCard key={artist.id} artist={artist} />
         ))}

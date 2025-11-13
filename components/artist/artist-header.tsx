@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Users, Music, TrendingUp } from "lucide-react";
+import { Users, Music, TrendingUp } from "lucide-react";
+import { SpotifyIcon } from "@/components/ui/spotify-icon";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -38,28 +39,39 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
       </Breadcrumb>
 
       <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="relative size-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:size-64">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={artist.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 192px, 256px"
-            />
-          ) : (
-            <div className="flex size-full items-center justify-center">
-              <Music className="size-16 text-muted-foreground" />
-            </div>
-          )}
+        <div className="relative mx-auto size-48 shrink-0 sm:mx-0 sm:size-64">
+          <div className="relative size-full overflow-hidden rounded-full bg-muted sm:rounded-lg">
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                alt={artist.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 192px, 256px"
+              />
+            ) : (
+              <div className="flex size-full items-center justify-center">
+                <Music className="size-16 text-muted-foreground" />
+              </div>
+            )}
+          </div>
+          <a
+            href={artist.external_urls.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-0 left-1/2 flex size-12 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full bg-black shadow-lg transition-transform hover:scale-110 sm:bottom-auto sm:left-auto sm:right-2 sm:top-2 sm:translate-x-0 sm:translate-y-0 sm:size-10"
+            aria-label="Abrir en Spotify"
+          >
+            <SpotifyIcon size={20} className="text-[#1DB954]" />
+          </a>
         </div>
 
         <div className="flex-1 space-y-4">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold sm:text-4xl">{artist.name}</h1>
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex flex-col items-center sm:items-start">
+              <h1 className="text-3xl font-bold text-center sm:text-left sm:text-4xl">{artist.name}</h1>
               {artist.genres.length > 0 && (
-                <div className="mt-2 flex flex-wrap gap-2">
+                <div className="mt-2 flex flex-wrap justify-center gap-2 sm:justify-start">
                   {artist.genres.slice(0, 3).map((genre) => (
                     <span
                       key={genre}
@@ -71,14 +83,6 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
                 </div>
               )}
             </div>
-            <a
-              href={artist.external_urls.spotify}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ExternalLink className="size-5" />
-            </a>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">

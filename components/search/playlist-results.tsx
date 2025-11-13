@@ -18,7 +18,7 @@ function PlaylistCard({ playlist }: { playlist: SpotifyPlaylist }) {
   return (
     <Link
       href={`/playlist/${playlist.id}`}
-      className="group block rounded-xl border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg"
+      className="group block w-full border-b border-border/50 bg-card px-4 py-4 transition-all hover:bg-accent/50 sm:px-6 sm:py-5 lg:px-8 last:border-b-0"
     >
       <div className="flex gap-4">
         <div className="relative size-24 shrink-0 overflow-hidden rounded-lg bg-muted transition-transform group-hover:scale-105">
@@ -101,12 +101,12 @@ export function PlaylistResults({ data }: PlaylistResultsProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
         <h2 className="text-xl font-semibold">
           Resultados ({data.playlists.total})
         </h2>
       </div>
-      <div className="grid gap-4">
+      <div className="grid gap-0 -mx-4 sm:-mx-6 lg:-mx-8">
         {playlists.map((playlist) => (
           <PlaylistCard key={playlist.id} playlist={playlist} />
         ))}

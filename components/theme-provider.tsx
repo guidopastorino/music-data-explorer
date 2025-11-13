@@ -8,7 +8,9 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     <NextThemesProvider
       storageKey="wollen-theme"
       defaultTheme="system"
-      attribute="class" {...props}
+      attribute="class"
+      disableTransitionOnChange
+      {...props}
     >
       {children}
     </NextThemesProvider>

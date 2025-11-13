@@ -88,23 +88,23 @@ export function PlaylistPageClient({ playlistId }: PlaylistPageClientProps) {
           <>
             <div className="grid gap-8 lg:grid-cols-2">
               <div className="space-y-8">
-                <div className="rounded-lg border bg-card p-6">
+                <div className="rounded-lg md:border md:bg-card md:p-6">
                   <DurationChart tracks={tracksForCharts} />
                 </div>
               </div>
 
               <div className="space-y-8">
-                <div className="rounded-lg border bg-card p-6">
+                <div className="rounded-lg md:border md:bg-card md:p-6">
                   <PopularityChart tracks={tracksForCharts} />
                 </div>
               </div>
             </div>
 
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg md:border md:bg-card md:p-6">
               <PlaylistInsights tracks={tracks} />
             </div>
 
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg md:border md:bg-card md:p-6">
               <TopTracksList tracks={tracks} />
             </div>
           </>

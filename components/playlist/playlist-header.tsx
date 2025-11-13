@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Users, Music, ListMusic } from "lucide-react";
+import { Users, Music, ListMusic } from "lucide-react";
+import { SpotifyIcon } from "@/components/ui/spotify-icon";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -40,20 +41,29 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
       </Breadcrumb>
 
       <div className="flex flex-col gap-6 sm:flex-row">
-        <div className="relative size-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:size-64">
+        <div className="relative mx-auto aspect-square w-full shrink-0 overflow-hidden rounded-lg bg-muted sm:mx-0 sm:size-64">
           {imageUrl ? (
             <Image
               src={imageUrl}
               alt={playlist.name}
               fill
-              className="object-cover"
-              sizes="(max-width: 640px) 192px, 256px"
+              className="object-contain sm:object-cover"
+              sizes="(max-width: 640px) 100vw, 256px"
             />
           ) : (
             <div className="flex size-full items-center justify-center">
               <ListMusic className="size-16 text-muted-foreground" />
             </div>
           )}
+          <a
+            href={playlist.external_urls.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute right-2 top-2 flex size-10 items-center justify-center rounded-full bg-black shadow-lg transition-transform hover:scale-110"
+            aria-label="Abrir en Spotify"
+          >
+            <SpotifyIcon size={20} className="text-[#1DB954]" />
+          </a>
         </div>
 
         <div className="flex-1 space-y-4">
@@ -67,14 +77,6 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
                 Por {playlist.owner.display_name}
               </p>
             </div>
-            <a
-              href={playlist.external_urls.spotify}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ExternalLink className="size-5" />
-            </a>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
