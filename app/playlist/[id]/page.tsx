@@ -1,125 +1,73 @@
-"use client";
+import type { Metadata } from "next";
+import { getPlaylistMetadata } from "@/lib/api/spotify/metadata";
+import { PlaylistPageClient } from "@/components/playlist/playlist-page-client";
 
-import { use } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { Loader2, AlertCircle } from "lucide-react";
-import { PlaylistHeader } from "@/components/playlist/playlist-header";
-import { PlaylistInsights } from "@/components/playlist/playlist-insights";
-import { DurationChart } from "@/components/artist/duration-chart";
-import { PopularityChart } from "@/components/artist/popularity-chart";
-import { TopTracksList } from "@/components/artist/top-tracks-list";
-import { FunFactButton } from "@/components/fun-fact/fun-fact-button";
-import type { SpotifyPlaylist, SpotifyTrack } from "@/lib/api/spotify";
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  try {
+    const { id } = await params;
+    const playlist = await getPlaylistMetadata(id);
 
-interface PlaylistData {
-  playlist: SpotifyPlaylist & {
-    tracks: {
-      total: number;
-      items: SpotifyTrack[];
+    if (!playlist) {
+      return {
+        title: "Playlist | Music Data Explorer",
+        description: "Descubre insights interesantes sobre playlists usando la API de Spotify",
+      };
+    }
+
+    const imageUrl = playlist.images[0]?.url;
+    const followers = playlist.followers?.total ?? 0;
+    const followersFormatted = followers.toLocaleString("es-ES");
+    const trackCount = playlist.tracks?.total ?? 0;
+    const owner = playlist.owner.display_name;
+    const description = playlist.description || `${playlist.name} por ${owner}`;
+
+    return {
+      title: `${playlist.name} | Music Data Explorer`,
+      description: `${playlist.name} por ${owner}. ${trackCount} canciones. ${followers > 0 ? `${followersFormatted} seguidores. ` : ""}${description}`,
+      openGraph: {
+        title: `${playlist.name} | Music Data Explorer`,
+        description: `${playlist.name} por ${owner} • ${trackCount} canciones${followers > 0 ? ` • ${followersFormatted} seguidores` : ""}`,
+        type: "music.playlist",
+        images: imageUrl
+          ? [
+              {
+                url: imageUrl,
+                width: 640,
+                height: 640,
+                alt: playlist.name,
+              },
+            ]
+          : [],
+      },
+      twitter: {
+        card: "summary",
+        title: `${playlist.name} | Music Data Explorer`,
+        description: `${playlist.name} por ${owner} • ${trackCount} canciones${followers > 0 ? ` • ${followersFormatted} seguidores` : ""}`,
+        images: imageUrl ? [imageUrl] : [],
+      },
     };
-  };
-}
-
-async function getPlaylistData(playlistId: string): Promise<PlaylistData> {
-  const response = await fetch(`/api/spotify/playlists/${playlistId}`);
-  if (!response.ok) {
-    throw new Error("Error al obtener datos de la playlist");
+  } catch (error) {
+    console.error("Error en generateMetadata para playlist:", error);
+    return {
+      title: "Playlist | Music Data Explorer",
+      description: "Descubre insights interesantes sobre playlists usando la API de Spotify",
+    };
   }
-  return response.json();
 }
 
-export default function PlaylistPage({
+export default async function PlaylistPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = use(params);
+  const { id } = await params;
 
-  const {
-    data,
-    isLoading,
-    error,
-  } = useQuery<PlaylistData>({
-    queryKey: ["playlist", id],
-    queryFn: () => getPlaylistData(id),
-  });
-
-  if (isLoading) {
-    return (
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex min-h-[60vh] items-center justify-center">
-          <div className="flex flex-col items-center gap-4">
-            <Loader2 className="size-8 animate-spin text-primary" />
-            <p className="text-muted-foreground">Cargando información de la playlist...</p>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  if (error || !data) {
-    return (
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex min-h-[60vh] items-center justify-center">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <AlertCircle className="size-12 text-destructive" />
-            <div>
-              <h2 className="text-xl font-semibold">Error al cargar la playlist</h2>
-              <p className="text-muted-foreground">
-                {error instanceof Error ? error.message : "Error desconocido"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </main>
-    );
-  }
-
-  const { playlist } = data;
-  // Asegurar que tracks.items es SpotifyTrack[] (ya procesado por la API)
-  const tracks: SpotifyTrack[] = playlist.tracks.items as SpotifyTrack[];
-
-  // Limitar tracks para los gráficos (mostrar solo los primeros 50 para mejor rendimiento)
-  const tracksForCharts = tracks.slice(0, 50);
-
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="space-y-12">
-        <PlaylistHeader playlist={playlist} />
-
-        {tracks.length > 0 ? (
-          <>
-            <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-8">
-                <div className="rounded-lg border bg-card p-6">
-                  <DurationChart tracks={tracksForCharts} />
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                <div className="rounded-lg border bg-card p-6">
-                  <PopularityChart tracks={tracksForCharts} />
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-lg border bg-card p-6">
-              <PlaylistInsights tracks={tracks} />
-            </div>
-
-            <div className="rounded-lg border bg-card p-6">
-              <TopTracksList tracks={tracks} />
-            </div>
-          </>
-        ) : (
-          <div className="rounded-lg border bg-card p-8 text-center">
-            <p className="text-muted-foreground">Esta playlist no tiene canciones disponibles</p>
-          </div>
-        )}
-      </div>
-
-      <FunFactButton type="playlist" id={id} name={playlist.name} />
-    </main>
-  );
+  // No necesitamos obtener la playlist aquí porque el componente client lo hace
+  // Solo pasamos el ID y el componente client manejará la carga
+  return <PlaylistPageClient playlistId={id} />;
 }
 

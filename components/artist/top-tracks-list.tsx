@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { ExternalLink, Clock, TrendingUp } from "lucide-react";
 import type { SpotifyTrack } from "@/lib/api/spotify";
@@ -33,56 +34,12 @@ export function TopTracksList({ tracks }: TopTracksListProps) {
           const uniqueKey = `${track.id}-${index}`;
 
           return (
-            <div
+            <TrackImage
               key={uniqueKey}
-              className="group flex items-center gap-4 rounded-lg border bg-card p-4 transition-all hover:shadow-md"
-            >
-              <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted font-bold">
-                {index + 1}
-              </div>
-
-              <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
-                {albumImage ? (
-                  <Image
-                    src={albumImage}
-                    alt={track.album.name}
-                    fill
-                    className="object-cover"
-                    sizes="64px"
-                  />
-                ) : (
-                  <div className="flex size-full items-center justify-center">
-                    <TrendingUp className="size-6 text-muted-foreground" />
-                  </div>
-                )}
-              </div>
-
-              <div className="flex-1 min-w-0">
-                <h4 className="truncate font-semibold">{track.name}</h4>
-                <p className="truncate text-sm text-muted-foreground">
-                  {track.artists.map((a) => a.name).join(", ")} • {track.album.name}
-                </p>
-              </div>
-
-              <div className="flex shrink-0 items-center gap-4">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="size-4" />
-                  <span>{formatDuration(track.duration_ms)}</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <TrendingUp className="size-4" />
-                  <span>{track.popularity}</span>
-                </div>
-                <a
-                  href={track.external_urls.spotify}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  <ExternalLink className="size-4" />
-                </a>
-              </div>
-            </div>
+              track={track}
+              index={index}
+              albumImage={albumImage}
+            />
           );
         })}
       </div>
@@ -90,3 +47,66 @@ export function TopTracksList({ tracks }: TopTracksListProps) {
   );
 }
 
+function TrackImage({
+  track,
+  index,
+  albumImage,
+}: {
+  track: SpotifyTrack;
+  index: number;
+  albumImage?: string;
+}) {
+  const [imageError, setImageError] = useState(false);
+
+  return (
+    <div className="group flex items-center gap-4 rounded-lg border bg-card p-4 transition-all hover:shadow-md">
+      <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-muted font-bold">
+        {index + 1}
+      </div>
+
+      <div className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted">
+        {albumImage && !imageError ? (
+          <Image
+            src={albumImage}
+            alt={track.album.name}
+            fill
+            className="object-cover"
+            sizes="64px"
+            onError={() => setImageError(true)}
+            unoptimized
+          />
+        ) : (
+          <div className="flex size-full items-center justify-center">
+            <TrendingUp className="size-6 text-muted-foreground" />
+          </div>
+        )}
+      </div>
+
+      <div className="flex-1 min-w-0">
+        <h4 className="truncate font-semibold">{track.name}</h4>
+        <p className="truncate text-sm text-muted-foreground">
+          {track.artists.map((a) => a.name).join(", ")} • {track.album.name}
+        </p>
+      </div>
+
+      <div className="flex shrink-0 items-center gap-4">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Clock className="size-4" />
+          <span>{formatDuration(track.duration_ms)}</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <TrendingUp className="size-4" />
+          <span>{track.popularity}</span>
+        </div>
+        <a
+          href={track.external_urls.spotify}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ExternalLink className="size-4" />
+        </a>
+      </div>
+    </div>
+  );
+}

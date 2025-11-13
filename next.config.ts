@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname),
   images: {
     remotePatterns: [
       {
@@ -28,6 +30,14 @@ const nextConfig: NextConfig = {
         hostname: "*.spotifycdn.com",
       },
     ],
+    // Aumentar timeout para imágenes remotas
+    minimumCacheTTL: 60,
+    // Configurar timeout más largo para descargas de imágenes
+    dangerouslyAllowSVG: false,
+  },
+  // Aumentar timeout general para peticiones de imágenes
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
   },
 };
 
