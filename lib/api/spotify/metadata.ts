@@ -7,19 +7,12 @@ import type { SpotifyArtist, SpotifyPlaylist } from "./types";
  */
 export async function getArtistMetadata(artistId: string): Promise<SpotifyArtist | null> {
   try {
-    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
-
-    if (!accessToken) {
-      console.error("SPOTIFY_ACCESS_TOKEN no está configurado");
-      return null;
-    }
-
     if (!artistId || artistId.trim() === "") {
       console.error("Artist ID no válido");
       return null;
     }
 
-    const client = createSpotifyClient(accessToken);
+    const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
     const artist = await endpoints.getArtist(artistId);
@@ -53,19 +46,12 @@ export async function getPlaylistMetadata(
   playlistId: string,
 ): Promise<SpotifyPlaylist | null> {
   try {
-    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
-
-    if (!accessToken) {
-      console.error("SPOTIFY_ACCESS_TOKEN no está configurado");
-      return null;
-    }
-
     if (!playlistId || playlistId.trim() === "") {
       console.error("Playlist ID no válido");
       return null;
     }
 
-    const client = createSpotifyClient(accessToken);
+    const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
     const playlist = await endpoints.getPlaylist(playlistId);

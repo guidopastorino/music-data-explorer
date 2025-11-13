@@ -3,15 +3,6 @@ import { createSpotifyClient, SpotifyEndpoints } from "@/lib/api/spotify";
 
 export async function GET(request: NextRequest) {
   try {
-    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
-
-    if (!accessToken) {
-      return NextResponse.json(
-        { error: "SPOTIFY_ACCESS_TOKEN no está configurado" },
-        { status: 500 },
-      );
-    }
-
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get("q");
     const limit = searchParams.get("limit") || "20";
@@ -23,7 +14,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const client = createSpotifyClient(accessToken);
+    const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
     const results = await endpoints.searchPlaylists(query, Number.parseInt(limit, 10));

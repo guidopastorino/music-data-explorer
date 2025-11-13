@@ -6,15 +6,6 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const accessToken = process.env.SPOTIFY_ACCESS_TOKEN;
-
-    if (!accessToken) {
-      return NextResponse.json(
-        { error: "SPOTIFY_ACCESS_TOKEN no está configurado" },
-        { status: 500 },
-      );
-    }
-
     const { id } = await params;
 
     if (!id) {
@@ -24,7 +15,7 @@ export async function GET(
       );
     }
 
-    const client = createSpotifyClient(accessToken);
+    const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
     const playlist = await endpoints.getPlaylist(id);

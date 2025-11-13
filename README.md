@@ -147,7 +147,8 @@ Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variabl
 
 ```env
 # Spotify API
-SPOTIFY_ACCESS_TOKEN=tu_access_token_de_spotify
+SPOTIFY_CLIENT_ID=tu_client_id_de_spotify
+SPOTIFY_CLIENT_SECRET=tu_client_secret_de_spotify
 
 # Google Gemini API
 GEMINI_API_KEY=tu_api_key_de_gemini
@@ -155,21 +156,15 @@ GEMINI_API_KEY=tu_api_key_de_gemini
 
 ### Obtener Credenciales
 
-#### Spotify Access Token
+#### Spotify API Credentials
 1. Ve a [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-2. Crea una nueva aplicación
+2. Crea una nueva aplicación o selecciona una existente
 3. Obtén tu `client_id` y `client_secret` de la aplicación
-4. Obtén un access token usando el siguiente comando curl:
+4. Agrega estas credenciales a tu archivo `.env.local`
 
-```bash
-curl -X POST "https://accounts.spotify.com/api/token" \
-     -H "Content-Type: application/x-www-form-urlencoded" \
-     -d "grant_type=client_credentials&client_id=your-client-id&client_secret=your-client-secret"
-```
+**Nota:** La aplicación maneja automáticamente la obtención y renovación de access tokens. Los tokens se renuevan automáticamente cuando expiran (cada 1 hora) o cuando se detecta un error 401, sin necesidad de intervención manual.
 
-**Nota:** El access token tiene una duración de **1 hora**. Después de ese tiempo, necesitarás generar un nuevo token usando el mismo comando.
-
-Alternativamente, puedes seguir la guía oficial del [Client Credentials Flow](https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow).
+Para más información, puedes seguir la guía oficial del [Client Credentials Flow](https://developer.spotify.com/documentation/web-api/tutorials/client-credentials-flow).
 
 #### Google Gemini API Key
 1. Ve a [Google AI Studio](https://makersuite.google.com/app/apikey)
@@ -309,7 +304,3 @@ npm run start        # Inicia servidor de producción
 npm run lint         # Ejecuta Biome linter
 npm run format       # Formatea el código con Biome
 ```
-
----
-
-Este proyecto fue desarrollado como parte de un challenge de desarrollo full-stack de Wollen Labs. La aplicación demuestra la integración de APIs externas (Spotify), implementación de visualizaciones de datos interactivas, y el uso de inteligencia artificial para generar contenido dinámico. El objetivo es proporcionar una experiencia de usuario atractiva para explorar y descubrir insights interesantes sobre música.
