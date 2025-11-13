@@ -6,7 +6,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export function AppProviders({ children }: PropsWithChildren) {
@@ -24,9 +24,9 @@ export function AppProviders({ children }: PropsWithChildren) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>{children}</ThemeProvider>
-      {process.env.NODE_ENV === "development" ? (
+      {/* {process.env.NODE_ENV === "development" ? (
         <ReactQueryDevtools initialIsOpen={false} />
-      ) : null}
+      ) : null} */}
     </QueryClientProvider>
   );
 }

@@ -8,6 +8,7 @@ import { TopTracksList } from "@/components/artist/top-tracks-list";
 import { DurationChart } from "@/components/artist/duration-chart";
 import { PopularityChart } from "@/components/artist/popularity-chart";
 import { InsightsSection } from "@/components/artist/insights-section";
+import { FunFactButton } from "@/components/fun-fact/fun-fact-button";
 import type { SpotifyArtist, SpotifyTrack } from "@/lib/api/spotify";
 
 interface ArtistData {
@@ -99,6 +100,8 @@ export default function ArtistPage({
           <TopTracksList tracks={topTracks} />
         </div>
       </div>
+
+      <FunFactButton type="artist" id={id} name={artist.name} />
     </main>
   );
 }

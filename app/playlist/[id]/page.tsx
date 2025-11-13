@@ -8,6 +8,7 @@ import { PlaylistInsights } from "@/components/playlist/playlist-insights";
 import { DurationChart } from "@/components/artist/duration-chart";
 import { PopularityChart } from "@/components/artist/popularity-chart";
 import { TopTracksList } from "@/components/artist/top-tracks-list";
+import { FunFactButton } from "@/components/fun-fact/fun-fact-button";
 import type { SpotifyPlaylist, SpotifyTrack } from "@/lib/api/spotify";
 
 interface PlaylistData {
@@ -116,6 +117,8 @@ export default function PlaylistPage({
           </div>
         )}
       </div>
+
+      <FunFactButton type="playlist" id={id} name={playlist.name} />
     </main>
   );
 }

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, Users, Music, ListMusic } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import type { SpotifyPlaylistSearchResponse, SpotifyPlaylist } from "@/lib/api/spotify";
 
 interface PlaylistResultsProps {
@@ -17,69 +16,72 @@ function PlaylistCard({ playlist }: { playlist: SpotifyPlaylist }) {
   const trackCount = playlist.tracks?.total ?? 0;
 
   return (
-    <div className="group rounded-lg border bg-card p-4 transition-all hover:shadow-md">
+    <Link
+      href={`/playlist/${playlist.id}`}
+      className="group block rounded-xl border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg"
+    >
       <div className="flex gap-4">
-        <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-muted">
+        <div className="relative size-24 shrink-0 overflow-hidden rounded-lg bg-muted transition-transform group-hover:scale-105">
           {imageUrl ? (
             <Image
               src={imageUrl}
               alt={playlist.name}
               fill
               className="object-cover"
-              sizes="80px"
+              sizes="96px"
             />
           ) : (
             <div className="flex size-full items-center justify-center">
-              <ListMusic className="size-8 text-muted-foreground" />
+              <ListMusic className="size-10 text-muted-foreground" />
             </div>
           )}
         </div>
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 space-y-3">
           <div className="flex items-start justify-between gap-2">
-            <div>
-              <h3 className="font-semibold text-lg">{playlist.name}</h3>
+            <div className="flex-1">
+              <h3 className="font-semibold text-lg transition-colors group-hover:text-primary">
+                {playlist.name}
+              </h3>
               {playlist.description && (
                 <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
                   {playlist.description}
                 </p>
               )}
-              <p className="mt-1 text-xs text-muted-foreground">
+              <p className="mt-1.5 text-xs text-muted-foreground">
                 Por {playlist.owner.display_name}
               </p>
             </div>
-            <a
-              href={playlist.external_urls.spotify}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open(playlist.external_urls.spotify, "_blank", "noopener,noreferrer");
+              }}
+              className="shrink-0 rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground cursor-pointer"
+              aria-label="Abrir en Spotify"
             >
               <ExternalLink className="size-4" />
-            </a>
+            </button>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
             {playlist.followers && (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <Users className="size-4" />
                 <span>{followersFormatted} seguidores</span>
               </div>
             )}
             {playlist.tracks && (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <Music className="size-4" />
                 <span>{trackCount} canciones</span>
               </div>
             )}
           </div>
-
-          <Link href={`/playlist/${playlist.id}`}>
-            <Button variant="outline" className="w-full sm:w-auto">
-              Ver análisis
-            </Button>
-          </Link>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
