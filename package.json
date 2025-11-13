@@ -1,5 +1,5 @@
 {
-  "name": "wollen-fullstack",
+  "name": "music-data-explorer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -25,6 +25,7 @@
     "lucide-react": "^0.553.0",
     "next": "16.0.1",
     "next-themes": "^0.4.6",
+    "nextjs-toploader": "^3.9.17",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "recharts": "^3.4.1",
