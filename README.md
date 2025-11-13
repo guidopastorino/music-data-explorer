@@ -176,6 +176,12 @@ Alternativamente, puedes seguir la guía oficial del [Client Credentials Flow](h
 2. Crea una nueva API key
 3. Copia la key al archivo `.env.local`
 
+**Límites de frecuencia (Free Tier):**
+
+La aplicación utiliza un sistema de fallback entre modelos de Gemini. En el nivel gratuito existe un límite de solicitudes por día. La aplicación implementa un sistema de caché para evitar llamadas excesivas a la API.
+
+Para más información sobre los límites de frecuencia, consulta la [documentación oficial de Gemini API](https://ai.google.dev/gemini-api/docs/rate-limits?hl=es-419).
+
 ## Documentación de APIs
 
 ### API Routes Internas
