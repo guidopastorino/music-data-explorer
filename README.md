@@ -1,4 +1,8 @@
-# Music Data Explorer
+<div align="center">
+  <img src="./public/icons/apple-icon-180x180.png" alt="Music Data Explorer Icon" width="120" height="120">
+</div>
+
+<h1 align="center">Music Data Explorer</h1>
 
 Una aplicación web full-stack que consume la API de Spotify para descubrir insights interesantes sobre artistas, playlists y canciones. Incluye visualizaciones interactivas y un generador de "fun facts" con inteligencia artificial.
 
