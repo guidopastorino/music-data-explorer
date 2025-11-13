@@ -67,7 +67,13 @@ export function PopularityChart({ tracks }: PopularityChartProps) {
               stroke="var(--chart-2)"
               strokeWidth={2}
               dot={<Dot r={4} fill="var(--chart-2)" />}
-              activeDot={{ r: 6, fill: "var(--chart-2)" }}
+              activeDot={{
+                r: 8,
+                fill: "var(--chart-2)",
+                stroke: "var(--card)",
+                strokeWidth: 2,
+                style: { filter: "drop-shadow(0 0 6px var(--chart-2))" },
+              }}
             />
           </LineChart>
         </ResponsiveContainer>
