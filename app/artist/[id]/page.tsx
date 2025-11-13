@@ -41,7 +41,7 @@ export default function ArtistPage({
 
   if (isLoading) {
     return (
-      <main className="container mx-auto px-4 py-8">
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="size-8 animate-spin text-primary" />
@@ -54,7 +54,7 @@ export default function ArtistPage({
 
   if (error || !data) {
     return (
-      <main className="container mx-auto px-4 py-8">
+      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="flex flex-col items-center gap-4 text-center">
             <AlertCircle className="size-12 text-destructive" />
@@ -73,7 +73,7 @@ export default function ArtistPage({
   const { artist, topTracks } = data;
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="space-y-12">
         <ArtistHeader artist={artist} />
 

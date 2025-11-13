@@ -2,8 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Users, Music, ListMusic } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink, Users, Music, ListMusic } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import type { SpotifyPlaylist } from "@/lib/api/spotify";
 
 interface PlaylistHeaderProps {
@@ -18,12 +25,19 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
 
   return (
     <div className="space-y-6">
-      <Link href="/">
-        <Button variant="ghost" className="gap-2">
-          <ArrowLeft className="size-4" />
-          Volver al inicio
-        </Button>
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/">Inicio</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{playlist.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="relative size-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:size-64">
@@ -65,20 +79,24 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {playlist.followers && (
-              <div className="flex items-center gap-2 rounded-lg border bg-card p-4">
-                <Users className="size-5 text-primary" />
-                <div>
+              <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
+                <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <Users className="size-5 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground">Seguidores</p>
-                  <p className="text-lg font-semibold">{followersFormatted}</p>
+                  <p className="text-xl font-semibold">{followersFormatted}</p>
                 </div>
               </div>
             )}
             {playlist.tracks && (
-              <div className="flex items-center gap-2 rounded-lg border bg-card p-4">
-                <Music className="size-5 text-primary" />
-                <div>
+              <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
+                <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <Music className="size-5 text-primary" />
+                </div>
+                <div className="min-w-0 flex-1">
                   <p className="text-sm text-muted-foreground">Canciones</p>
-                  <p className="text-lg font-semibold">{trackCount}</p>
+                  <p className="text-xl font-semibold">{trackCount}</p>
                 </div>
               </div>
             )}

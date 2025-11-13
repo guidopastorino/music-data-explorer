@@ -2,8 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink, Users, Music, TrendingUp } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink, Users, Music, TrendingUp } from "lucide-react";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import type { SpotifyArtist } from "@/lib/api/spotify";
 
 interface ArtistHeaderProps {
@@ -16,12 +23,19 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
 
   return (
     <div className="space-y-6">
-      <Link href="/">
-        <Button variant="ghost" className="gap-2">
-          <ArrowLeft className="size-4" />
-          Volver al inicio
-        </Button>
-      </Link>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/">Inicio</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{artist.name}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
       <div className="flex flex-col gap-6 sm:flex-row">
         <div className="relative size-48 shrink-0 overflow-hidden rounded-lg bg-muted sm:size-64">
@@ -68,25 +82,31 @@ export function ArtistHeader({ artist }: ArtistHeaderProps) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="flex items-center gap-2 rounded-lg border bg-card p-4">
-              <Users className="size-5 text-primary" />
-              <div>
+            <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
+              <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <Users className="size-5 text-primary" />
+              </div>
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-muted-foreground">Seguidores</p>
-                <p className="text-lg font-semibold">{followers}</p>
+                <p className="text-xl font-semibold">{followers}</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 rounded-lg border bg-card p-4">
-              <TrendingUp className="size-5 text-primary" />
-              <div>
+            <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
+              <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <TrendingUp className="size-5 text-primary" />
+              </div>
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-muted-foreground">Popularidad</p>
-                <p className="text-lg font-semibold">{artist.popularity}/100</p>
+                <p className="text-xl font-semibold">{artist.popularity}/100</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 rounded-lg border bg-card p-4">
-              <Music className="size-5 text-primary" />
-              <div>
+            <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
+              <div className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <Music className="size-5 text-primary" />
+              </div>
+              <div className="min-w-0 flex-1">
                 <p className="text-sm text-muted-foreground">Géneros</p>
-                <p className="text-lg font-semibold">{artist.genres.length}</p>
+                <p className="text-xl font-semibold">{artist.genres.length}</p>
               </div>
             </div>
           </div>
