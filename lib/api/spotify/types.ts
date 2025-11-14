@@ -93,3 +93,9 @@ export interface SpotifyError {
   };
 }
 
+export interface SpotifyUnifiedSearchResponse {
+  artists: SpotifyArtist[];
+  playlists: SpotifyPlaylist[];
+  total: number;
+}
+

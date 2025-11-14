@@ -12,7 +12,7 @@ import {
   Dot,
 } from "recharts";
 import type { SpotifyTrack } from "@/lib/api/spotify";
-import { preparePopularityChartData } from "@/lib/utils/data-processing";
+import { preparePopularityChartData } from "@/lib/data-processing";
 
 interface PopularityChartProps {
   tracks: SpotifyTrack[];

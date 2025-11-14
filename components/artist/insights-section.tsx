@@ -8,7 +8,7 @@ import {
   findLongestTrack,
   findShortestTrack,
   calculateAveragePopularity,
-} from "@/lib/utils/data-processing";
+} from "@/lib/data-processing";
 
 interface InsightsSectionProps {
   tracks: SpotifyTrack[];

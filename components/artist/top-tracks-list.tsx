@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ExternalLink, Clock, TrendingUp } from "lucide-react";
 import type { SpotifyTrack } from "@/lib/api/spotify";
-import { formatDuration } from "@/lib/utils/data-processing";
+import { formatDuration } from "@/lib/data-processing";
 
 interface TopTracksListProps {
   tracks: SpotifyTrack[];

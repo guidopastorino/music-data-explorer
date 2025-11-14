@@ -5,8 +5,7 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get("q");
-    const limit = searchParams.get("limit") || "20";
-    const offset = searchParams.get("offset") || "0";
+    const limit = Number.parseInt(searchParams.get("limit") || "10", 10);
 
     if (!query) {
       return NextResponse.json(
@@ -18,18 +17,14 @@ export async function GET(request: NextRequest) {
     const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
-    const results = await endpoints.searchPlaylists(
-      query,
-      Number.parseInt(limit, 10),
-      Number.parseInt(offset, 10),
-    );
+    const results = await endpoints.searchUnified(query, limit);
 
     return NextResponse.json(results);
   } catch (error) {
-    console.error("Error en búsqueda de playlists de Spotify:", error);
+    console.error("Error en búsqueda unificada de Spotify:", error);
     return NextResponse.json(
       {
-        error: "Error al buscar playlists en Spotify",
+        error: "Error al buscar en Spotify",
         details: error instanceof Error ? error.message : "Error desconocido",
       },
       { status: 500 },

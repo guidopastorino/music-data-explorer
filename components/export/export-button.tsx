@@ -16,7 +16,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { exportToPDF, exportToJSON, exportToCSV } from "@/lib/utils/export";
+import { exportToPDF, exportToJSON, exportToCSV } from "@/lib/export";
 import type { SpotifyArtist, SpotifyTrack, SpotifyPlaylist } from "@/lib/api/spotify";
 
 interface ExportButtonProps {

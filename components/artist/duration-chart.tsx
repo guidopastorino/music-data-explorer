@@ -12,7 +12,7 @@ import {
   Cell,
 } from "recharts";
 import type { SpotifyTrack } from "@/lib/api/spotify";
-import { prepareDurationChartData, formatDuration } from "@/lib/utils/data-processing";
+import { prepareDurationChartData, formatDuration } from "@/lib/data-processing";
 
 interface DurationChartProps {
   tracks: SpotifyTrack[];

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Users, Music, ListMusic } from "lucide-react";
-import { SpotifyIcon } from "@/components/ui/spotify-icon";
+import { SpotifyIcon } from "@/components/spotify-icon";
 import {
   Breadcrumb,
   BreadcrumbList,

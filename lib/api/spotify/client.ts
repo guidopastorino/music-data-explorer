@@ -86,7 +86,11 @@ export class SpotifyClient {
         if (error.code === "ECONNABORTED") {
           console.error("Spotify API: Timeout - La petición tardó demasiado");
         } else if (error.response?.status === 404) {
-          console.error("Spotify API: Not Found - El recurso no existe");
+          // 404 puede ser normal para algunos endpoints que requieren autenticación de usuario
+          // Solo loguear en desarrollo o si es crítico
+          if (process.env.NODE_ENV === "development") {
+            console.warn("Spotify API: Not Found - El recurso no existe (puede requerir autenticación de usuario)");
+          }
         } else if (error.response?.status && error.response.status >= 500) {
           console.error("Spotify API: Server Error - Error del servidor de Spotify");
         }

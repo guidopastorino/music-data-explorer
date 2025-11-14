@@ -6,6 +6,7 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const query = searchParams.get("q");
     const limit = searchParams.get("limit") || "20";
+    const offset = searchParams.get("offset") || "0";
 
     if (!query) {
       return NextResponse.json(
@@ -17,7 +18,11 @@ export async function GET(request: NextRequest) {
     const client = createSpotifyClient();
     const endpoints = new SpotifyEndpoints(client.getClient());
 
-    const results = await endpoints.searchArtists(query, Number.parseInt(limit, 10));
+    const results = await endpoints.searchArtists(
+      query,
+      Number.parseInt(limit, 10),
+      Number.parseInt(offset, 10),
+    );
 
     return NextResponse.json(results);
   } catch (error) {

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export function Footer() {
   return (
-    <footer className="flex items-center justify-center py-6 mt-12 text-muted-foreground text-sm gap-2">
+    <footer className="relative w-full flex items-center justify-center py-6 mt-12 text-muted-foreground text-sm gap-2">
       <Image
         src="/icons/favicon-32x32.png"
         alt="Music Data Explorer Logo"

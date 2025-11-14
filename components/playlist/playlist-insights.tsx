@@ -9,7 +9,7 @@ import {
   findShortestTrack,
   calculateAveragePopularity,
   findMostFrequentArtists,
-} from "@/lib/utils/data-processing";
+} from "@/lib/data-processing";
 
 interface PlaylistInsightsProps {
   tracks: SpotifyTrack[];
