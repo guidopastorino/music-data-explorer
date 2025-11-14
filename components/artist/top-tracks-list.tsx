@@ -8,9 +8,10 @@ import { formatDuration } from "@/lib/utils/data-processing";
 
 interface TopTracksListProps {
   tracks: SpotifyTrack[];
+  context?: "artist" | "playlist";
 }
 
-export function TopTracksList({ tracks }: TopTracksListProps) {
+export function TopTracksList({ tracks, context = "artist" }: TopTracksListProps) {
   if (tracks.length === 0) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
@@ -19,12 +20,16 @@ export function TopTracksList({ tracks }: TopTracksListProps) {
     );
   }
 
+  const descriptionText = context === "playlist" 
+    ? "Las canciones más populares de la playlist"
+    : "Las canciones más populares del artista";
+
   return (
     <div className="space-y-4">
       <div>
         <h3 className="text-lg font-semibold">Top Canciones</h3>
         <p className="text-sm text-muted-foreground">
-          Las canciones más populares del artista
+          {descriptionText}
         </p>
       </div>
       <div className="space-y-2">

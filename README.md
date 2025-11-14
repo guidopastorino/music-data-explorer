@@ -79,7 +79,7 @@ Music Data Explorer es una aplicación web que permite a los usuarios explorar d
 ## Estructura del Proyecto
 
 ```
-wollen-fullstack/
+music-data-explorer/
 ├── app/                    # Next.js App Router
 │   ├── api/                # API Routes (endpoints del servidor)
 │   │   ├── fun-fact/       # Endpoint para generar fun facts con IA
@@ -116,8 +116,8 @@ wollen-fullstack/
 
 1. **Clonar el repositorio**
 ```bash
-git clone <repository-url>
-cd wollen-fullstack
+git clone https://github.com/guidopastorino/music-data-explorer
+cd music-data-explorer
 ```
 
 2. **Instalar dependencias**

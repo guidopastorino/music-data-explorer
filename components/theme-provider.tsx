@@ -6,7 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider
-      storageKey="wollen-theme"
+      storageKey="music-data-explorer-theme"
       defaultTheme="system"
       attribute="class"
       disableTransitionOnChange

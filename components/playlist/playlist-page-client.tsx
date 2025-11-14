@@ -43,7 +43,7 @@ export function PlaylistPageClient({ playlistId }: PlaylistPageClientProps) {
 
   if (isLoading) {
     return (
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="flex flex-col items-center gap-4">
             <Loader2 className="size-8 animate-spin text-primary" />
@@ -105,7 +105,7 @@ export function PlaylistPageClient({ playlistId }: PlaylistPageClientProps) {
             </div>
 
             <div className="rounded-lg md:border md:bg-card md:p-6">
-              <TopTracksList tracks={tracks} />
+              <TopTracksList tracks={tracks} context="playlist" />
             </div>
           </>
         ) : (
