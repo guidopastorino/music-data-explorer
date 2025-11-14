@@ -104,8 +104,9 @@ music-data-explorer/
 ├── lib/                    # Utilidades y lógica
 │   ├── api/                # Clientes y endpoints de APIs
 │   │   └── spotify/        # Cliente de Spotify, endpoints y tipos
-│   └── utils/              # Funciones utilitarias
-│
+│   ├── data-processing.ts  # Funciones para procesar datos (duraciones, popularidad, gráficos)
+│   ├── export.ts           # Funciones para exportar datos (JSON, CSV, PDF)
+│   └── utils.ts            # Utilidades generales (cn para Tailwind)
 ├── public/                 # Archivos estáticos
 ├── biome.json              # Configuración de Biome (linter y formateador)
 ├── .env.example            # Ejemplo de archivo de variables de entorno
