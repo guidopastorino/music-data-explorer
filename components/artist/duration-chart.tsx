@@ -54,7 +54,7 @@ export function DurationChart({ tracks }: DurationChartProps) {
           Comparación de la duración de cada canción (en segundos)
         </p>
       </div>
-      <div className="h-80 w-full bg-card md:bg-transparent rounded-lg">
+      <div className="h-80 w-full bg-card md:bg-transparent rounded-lg [&_.recharts-tooltip-cursor]:fill-accent/40">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} margin={{ top: 20, right: 30, left: isMobile ? 0 : 20, bottom: 60 }}>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />

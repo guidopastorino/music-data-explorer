@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2, AlertCircle } from "lucide-react";
 import { ArtistHeader } from "@/components/artist/artist-header";
 import { TopTracksList } from "@/components/artist/top-tracks-list";
-import { DurationChart } from "@/components/artist/duration-chart";
-import { PopularityChart } from "@/components/artist/popularity-chart";
 import { InsightsSection } from "@/components/artist/insights-section";
+import { ChartsSection } from "@/components/charts/charts-section";
 import { FunFactButton } from "@/components/fun-fact/fun-fact-button";
+import { ExportButton } from "@/components/export/export-button";
 import type { SpotifyArtist, SpotifyTrack } from "@/lib/api/spotify";
 
 interface ArtistData {
@@ -75,19 +75,7 @@ export function ArtistPageClient({ artistId }: ArtistPageClientProps) {
       <div className="space-y-12">
         <ArtistHeader artist={artist} />
 
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="space-y-8">
-            <div className="rounded-lg md:border md:bg-card md:p-6">
-              <DurationChart tracks={topTracks} />
-            </div>
-          </div>
-
-          <div className="space-y-8">
-            <div className="rounded-lg md:border md:bg-card md:p-6">
-              <PopularityChart tracks={topTracks} />
-            </div>
-          </div>
-        </div>
+        <ChartsSection tracks={topTracks} columns={2} />
 
         <div className="rounded-lg md:border md:bg-card md:p-6">
           <InsightsSection tracks={topTracks} />
@@ -99,6 +87,13 @@ export function ArtistPageClient({ artistId }: ArtistPageClientProps) {
       </div>
 
       <FunFactButton type="artist" id={artistId} name={artist.name} />
+      <ExportButton
+        type="artist"
+        name={artist.name}
+        imageUrl={artist.images[0]?.url}
+        artist={artist}
+        tracks={topTracks}
+      />
     </main>
   );
 }

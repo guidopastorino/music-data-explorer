@@ -4,10 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2, AlertCircle } from "lucide-react";
 import { PlaylistHeader } from "@/components/playlist/playlist-header";
 import { PlaylistInsights } from "@/components/playlist/playlist-insights";
-import { DurationChart } from "@/components/artist/duration-chart";
-import { PopularityChart } from "@/components/artist/popularity-chart";
 import { TopTracksList } from "@/components/artist/top-tracks-list";
+import { ChartsSection } from "@/components/charts/charts-section";
 import { FunFactButton } from "@/components/fun-fact/fun-fact-button";
+import { ExportButton } from "@/components/export/export-button";
 import type { SpotifyPlaylist, SpotifyTrack } from "@/lib/api/spotify";
 
 interface PlaylistData {
@@ -86,19 +86,7 @@ export function PlaylistPageClient({ playlistId }: PlaylistPageClientProps) {
 
         {tracks.length > 0 ? (
           <>
-            <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-8">
-                <div className="rounded-lg md:border md:bg-card md:p-6">
-                  <DurationChart tracks={tracksForCharts} />
-                </div>
-              </div>
-
-              <div className="space-y-8">
-                <div className="rounded-lg md:border md:bg-card md:p-6">
-                  <PopularityChart tracks={tracksForCharts} />
-                </div>
-              </div>
-            </div>
+            <ChartsSection tracks={tracksForCharts} columns={1} />
 
             <div className="rounded-lg md:border md:bg-card md:p-6">
               <PlaylistInsights tracks={tracks} />
@@ -116,6 +104,13 @@ export function PlaylistPageClient({ playlistId }: PlaylistPageClientProps) {
       </div>
 
       <FunFactButton type="playlist" id={playlistId} name={playlist.name} />
+      <ExportButton
+        type="playlist"
+        name={playlist.name}
+        imageUrl={playlist.images[0]?.url}
+        playlist={playlist}
+        tracks={tracks}
+      />
     </main>
   );
 }
