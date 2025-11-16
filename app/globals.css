@@ -156,11 +156,6 @@
   }
 }
 
-/* Hide scrollbar when showing large tooltips */
-body, html {
-  overflow-x: hidden;
-}
-
 /* Hide scrollbar but keep functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* IE and Edge */

@@ -83,9 +83,9 @@ export default function RootLayout({
         />
         <AppProviders>
           <Navbar />
-          <div className="pt-16">
+          <main>
             {children}
-          </div>
+          </main>
           <Footer />
         </AppProviders>
       </body>
